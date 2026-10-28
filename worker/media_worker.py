@@ -19,7 +19,7 @@ def graph(object_id,params):
 def download(url,temp):
  if not trusted(url):raise RuntimeError('untrusted_media_host')
  start=time.monotonic()
- with urllib.request.build_opener(Redirect()).open(urllib.request.Request(url,headers={'User-Agent':'AEPI13-Zaku-local/0.1.0-preview.1'}),timeout=60) as r,temp.open('xb') as f:
+ with urllib.request.build_opener(Redirect()).open(urllib.request.Request(url,headers={'User-Agent':'AEPI13-Zaku-local/0.1.0-preview.2'}),timeout=60) as r,temp.open('xb') as f:
   declared=r.headers.get_content_type();size=0
   while chunk:=r.read(1024*1024):
    require_space();size+=len(chunk)

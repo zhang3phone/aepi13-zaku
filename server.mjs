@@ -44,7 +44,7 @@ const server=http.createServer(async(req,res)=>{
  try{
  const url=new URL(req.url,'http://localhost'),p=url.pathname;
  if(p==='/favicon.ico'){res.writeHead(204);res.end();return;}
- if(p==='/health'){json(res,200,{status:'ok',systemId:'AEPI13-Zaku',demoMode:demo,version:'0.1.0-preview.1',releaseDate:'2026-10-28',releaseTimezone:'America/Los_Angeles',storage:store.pool?'postgres':'memory',googleConfigured:google.configured(),metaConfigured:!!process.env.META_ACCESS_TOKEN,writesEnabled:process.env.WORKBENCH_ENABLE_WRITES==='true'});return;}
+ if(p==='/health'){json(res,200,{status:'ok',systemId:'AEPI13-Zaku',demoMode:demo,version:'0.1.0-preview.2',releaseDate:'2026-10-28',releaseTimezone:'America/Los_Angeles',storage:store.pool?'postgres':'memory',googleConfigured:google.configured(),metaConfigured:!!process.env.META_ACCESS_TOKEN,writesEnabled:process.env.WORKBENCH_ENABLE_WRITES==='true'});return;}
  if(p==='/api/login'&&req.method==='POST'){
   checkOrigin(req);const ip=req.socket.remoteAddress;const count=attempts.get(ip)||{n:0,until:Date.now()+600000};if(Date.now()>count.until){count.n=0;count.until=Date.now()+600000;}if(count.n>=10){json(res,429,{error:'登录尝试过多，请 10 分钟后重试'});return;}
   const b=await body(req);const [salt,hash]=passwordHash.split(':');const actual=crypto.scryptSync(String(b.password||'').slice(0,256),salt,64).toString('hex');
@@ -59,7 +59,7 @@ const server=http.createServer(async(req,res)=>{
   if(p==='/api/logout'&&req.method==='POST'){sessions.delete(cookie(req));res.setHeader('Set-Cookie','mw_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');json(res,200,{ok:true});return;}
   if(p==='/api/state'){
    const snapshots=await store.snapshots(),settings=await store.settings();
-   json(res,200,{systemId:'AEPI13-Zaku',demoMode:demo,version:'0.1.0-preview.1',releaseDate:'2026-10-28',releaseTimezone:'America/Los_Angeles',today:today(),metaConfigured:!!process.env.META_ACCESS_TOKEN,writesEnabled:process.env.WORKBENCH_ENABLE_WRITES==='true',storage:store.pool?'postgres':'memory',syncBusy,googleConfigured:google.configured(),googleUpstream:GOOGLE_UPSTREAM,settings,snapshots:snapshots.filter(s=>!s.platform||s.platform==='meta').map(s=>({...s,accounts:s.accounts.map(({campaigns,...a})=>({...a,campaignCount:campaigns.length}))})),upstream:{repo:'getmcpads-com/meta-ads-mcp-server',version:'2.0.0',commit:'1f2ebe6c93c2ff9c8ed4c22b4f9ff06a8f7aebd8'}});return;
+   json(res,200,{systemId:'AEPI13-Zaku',demoMode:demo,version:'0.1.0-preview.2',releaseDate:'2026-10-28',releaseTimezone:'America/Los_Angeles',today:today(),metaConfigured:!!process.env.META_ACCESS_TOKEN,writesEnabled:process.env.WORKBENCH_ENABLE_WRITES==='true',storage:store.pool?'postgres':'memory',syncBusy,googleConfigured:google.configured(),googleUpstream:GOOGLE_UPSTREAM,settings,snapshots:snapshots.filter(s=>!s.platform||s.platform==='meta').map(s=>({...s,accounts:s.accounts.map(({campaigns,...a})=>({...a,campaignCount:campaigns.length}))})),upstream:{repo:'getmcpads-com/meta-ads-mcp-server',version:'2.0.0',commit:'1f2ebe6c93c2ff9c8ed4c22b4f9ff06a8f7aebd8'}});return;
   }
   if(p==='/api/daily-review/status'&&req.method==='GET'){json(res,200,await dailyReviewStatus(store.pool,url.searchParams.get('account')));return;}
   if(['/api/local-assets','/api/local-file','/api/storage'].includes(p)&&['GET','HEAD'].includes(req.method)){
@@ -142,5 +142,5 @@ const server=http.createServer(async(req,res)=>{
  const [file,type]=files[p];res.writeHead(200,{'content-type':type});res.end(req.method==='HEAD'?'':await fs.readFile(path.join(base,'public',file)));
  }catch(e){if(res.headersSent){res.destroy();return;}json(res,e.status||500,{error:redact(e)});}
 });
-server.listen(Number(process.env.PORT||8098),process.env.HOST||'127.0.0.1',()=>console.log('AEPI13-Zaku 0.1.0-preview.1 listening on port '+(process.env.PORT||8098)));
+server.listen(Number(process.env.PORT||8098),process.env.HOST||'127.0.0.1',()=>console.log('AEPI13-Zaku 0.1.0-preview.2 listening on port '+(process.env.PORT||8098)));
 process.on('SIGTERM',()=>{worker.stopping=true;clearInterval(worker.timer);server.close(()=>process.exit(0));});

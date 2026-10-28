@@ -1,6 +1,6 @@
 # 公开预览版验证记录
 
-日期：2026-10-28（America/Los_Angeles）。版本：0.1.0-preview.1。
+日期：2026-10-28（America/Los_Angeles）。版本：0.1.0-preview.2。
 
 已完成：
 

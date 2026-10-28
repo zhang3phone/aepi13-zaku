@@ -27,7 +27,7 @@
     },
     "web": {
       "build": ".",
-      "image": "aepi13-zaku:0.1.0-preview.1",
+      "image": "aepi13-zaku:0.1.0-preview.2",
       "env_file": [
         ".env.local"
       ],
@@ -62,7 +62,7 @@
       "profiles": [
         "live-review"
       ],
-      "image": "aepi13-zaku:0.1.0-preview.1",
+      "image": "aepi13-zaku:0.1.0-preview.2",
       "env_file": [
         ".env.local"
       ],
