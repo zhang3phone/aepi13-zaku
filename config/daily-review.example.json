@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "mode": "rules",
+  "timezone": "America/Los_Angeles",
+  "currency": "USD",
+  "hour": 9,
+  "monitors": [
+    {
+      "accountId": "900000000000001",
+      "campaignId": "900000000000002",
+      "adsetId": "900000000000003",
+      "adId": "900000000000004",
+      "label": "FICTIONAL_REPLACE_BEFORE_LIVE_USE",
+      "since": "2026-10-01",
+      "endExclusive": "2026-10-08",
+      "plannedDailyBudget": 20
+    }
+  ]
+}

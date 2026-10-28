@@ -1,0 +1,3 @@
+import {execFileSync} from 'node:child_process';import fs from 'node:fs';
+const folder='vendor/meta-ads-mcp-server',sha='1f2ebe6c93c2ff9c8ed4c22b4f9ff06a8f7aebd8';if(fs.existsSync(folder))throw Error('Vendor folder exists; refusing to overwrite.');fs.mkdirSync('vendor',{recursive:true});
+execFileSync('git',['clone','https://github.com/getmcpads-com/meta-ads-mcp-server.git',folder],{stdio:'inherit'});execFileSync('git',['checkout','--detach',sha],{cwd:folder,stdio:'inherit'});execFileSync('npm',['ci'],{cwd:folder,stdio:'inherit'});execFileSync('npm',['run','build'],{cwd:folder,stdio:'inherit'});console.log('Installed pinned Apache-2.0 upstream adapter. This is optional for live Meta mode.');

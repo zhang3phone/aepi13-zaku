@@ -1,0 +1,46 @@
+[
+  {
+    "accountId": "900000000000001",
+    "campaignId": "900000000000002",
+    "adsetId": "900000000000003",
+    "adId": "900000000000004",
+    "recordKey": "synthetic-case-v1",
+    "kind": "case",
+    "recordDate": "2026-10-01",
+    "title": "虚构案例：先理解素材，再判断数据",
+    "source": "纯手工虚构教学示例，不含真实业务资料",
+    "content": {
+      "summary": "演示如何把素材、设置、观察和后续验证放在一起。",
+      "facts": [
+        "示例花费24美元、2次购买，均为虚构数据。"
+      ],
+      "hypotheses": [
+        "小样本需要后续观察，不能作为真实营销结论。"
+      ],
+      "suggestions": [
+        "先核对真实业务的归因和贡献利润，再做自己的判断。"
+      ],
+      "approvals": [],
+      "executions": [],
+      "verification": [
+        "此案例没有对应真实广告，也没有执行平台操作。"
+      ],
+      "metrics": {
+        "since": "2026-10-01",
+        "until": "2026-10-01",
+        "timezone": "America/Los_Angeles",
+        "currency": "USD",
+        "attribution": "7天点击／1天浏览",
+        "basis": "虚构广告级合计",
+        "capturedAt": "2026-10-01T12:00:00Z",
+        "spend": 24,
+        "clicks": 40,
+        "purchases": 2,
+        "cpa": 12,
+        "purchaseValue": 60,
+        "roas": 2.5
+      },
+      "nextReview": "演示记录，无实际待执行广告。"
+    }
+  }
+]

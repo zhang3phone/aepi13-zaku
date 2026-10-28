@@ -1,0 +1,44 @@
+{
+  "id": "synthetic-demo-v1",
+  "capturedAt": "2026-10-01T12:00:00Z",
+  "since": "2026-10-01",
+  "until": "2026-10-01",
+  "source": "synthetic_demo",
+  "platform": "meta",
+  "attribution": "7-day click, 1-day view",
+  "notes": [
+    "全部为手工构造的虚构教学数据，不代表任何账户、品牌、商品或实际收益。"
+  ],
+  "accounts": [
+    {
+      "id": "900000000000001",
+      "name": "虚构示例账户",
+      "brand": "演示数据",
+      "currency": "USD",
+      "timezone": "America/Los_Angeles",
+      "portfolio": "虚构学习空间",
+      "campaignsComplete": true,
+      "totals": {
+        "spend": 24,
+        "impressions": 2000,
+        "reach": 1600,
+        "linkClicks": 40,
+        "purchases": 2,
+        "purchaseValue": 60
+      },
+      "campaigns": [
+        {
+          "id": "900000000000002",
+          "name": "虚构教学系列",
+          "spend": 24,
+          "impressions": 2000,
+          "reach": 1600,
+          "linkClicks": 40,
+          "purchases": 2,
+          "purchaseValue": 60,
+          "attribution": "7-day click, 1-day view"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "name": "aepi13-zaku-public",
+  "services": {
+    "db": {
+      "image": "postgres:18.6-alpine",
+      "environment": {
+        "POSTGRES_USER": "aepi13_zaku_app",
+        "POSTGRES_DB": "meta_ads_workbench",
+        "POSTGRES_PASSWORD": "${POSTGRES_PASSWORD:?Run npm run setup first}"
+      },
+      "volumes": [
+        "db-data:/var/lib/postgresql"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD-SHELL",
+          "pg_isready -U aepi13_zaku_app -d meta_ads_workbench"
+        ],
+        "interval": "5s",
+        "timeout": "3s",
+        "retries": 15
+      },
+      "networks": [
+        "database"
+      ],
+      "restart": "unless-stopped"
+    },
+    "web": {
+      "build": ".",
+      "image": "aepi13-zaku:0.1.0-preview.1",
+      "env_file": [
+        ".env.local"
+      ],
+      "ports": [
+        "127.0.0.1:8098:8098"
+      ],
+      "depends_on": {
+        "db": {
+          "condition": "service_healthy"
+        }
+      },
+      "volumes": [
+        "media-data:/data:ro",
+        "./vendor:/app/vendor:ro"
+      ],
+      "networks": [
+        "database"
+      ],
+      "read_only": true,
+      "tmpfs": [
+        "/tmp"
+      ],
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "restart": "unless-stopped"
+    },
+    "daily-review": {
+      "profiles": [
+        "live-review"
+      ],
+      "image": "aepi13-zaku:0.1.0-preview.1",
+      "env_file": [
+        ".env.local"
+      ],
+      "environment": {
+        "REVIEW_CONFIG": "/run/daily-review.json",
+        "REVIEW_OUTBOX": "/outbox"
+      },
+      "volumes": [
+        "./config/daily-review.example.json:/run/daily-review.json:ro",
+        "review-outbox:/outbox"
+      ],
+      "networks": [
+        "database"
+      ],
+      "depends_on": {
+        "db": {
+          "condition": "service_healthy"
+        }
+      },
+      "command": [
+        "node",
+        "scripts/daily-review.mjs"
+      ],
+      "read_only": true,
+      "tmpfs": [
+        "/tmp"
+      ],
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ]
+    }
+  },
+  "networks": {
+    "database": {}
+  },
+  "volumes": {
+    "db-data": {},
+    "media-data": {},
+    "review-outbox": {}
+  }
+}

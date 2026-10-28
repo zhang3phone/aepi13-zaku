@@ -1,0 +1,16 @@
+node_modules/
+vendor/
+.env*
+!.env.example
+.local-login.txt
+storage/
+backups/
+private/
+*.dump
+*.sql
+*.log
+*.zip
+*.key
+*.enc
+__pycache__/
+.DS_Store

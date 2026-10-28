@@ -1,0 +1,10 @@
+.git
+node_modules
+vendor
+.env*
+.local-login.txt
+storage
+backups
+private
+*.dump
+*.zip
